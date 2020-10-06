@@ -941,3 +941,6 @@ MigrationBackup/
 !tsconfig.base.json
 !tsconfig.eslint.json
 !tsconfig.json
+
+!packages/*
+packages/**/node_modules/
