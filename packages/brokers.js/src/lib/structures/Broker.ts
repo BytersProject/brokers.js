@@ -1,6 +1,7 @@
 import { decode, encode } from '@spectacles/util';
 import { EventEmitter } from 'events';
 import { Brokers } from '../Brokers';
+import { Awaited } from '../utils/Types';
 
 export type Serialize<Send> = (data: Send) => Buffer;
 export type Deserialize<Receive> = (data: Buffer) => Receive;
@@ -18,18 +19,14 @@ export interface ResponseOptions<T = unknown> {
 	reply: (data: T) => void;
 }
 
-// TODO: Yes
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/naming-convention
-export abstract class Broker<Send, Receive, _ROpts extends ResponseOptions = ResponseOptions> {
+export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = ResponseOptions> {
 
 	public readonly kSerialize: Serialize<Send>;
 	public readonly kDeserialize: Deserialize<Receive>;
 
 	protected brokerClient!: Brokers;
-	/* eslint-disable @typescript-eslint/naming-convention */
-	protected readonly _subscribedEvents = new Set<string>();
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	private readonly _responses: EventEmitter = new EventEmitter();
-	/* eslint-enable @typescript-eslint/naming-convention */
 
 	public constructor(options?: Options<Send, Receive>) {
 		this.kSerialize = options?.serialize ?? encode;
@@ -37,16 +34,48 @@ export abstract class Broker<Send, Receive, _ROpts extends ResponseOptions = Res
 		this._responses.setMaxListeners(0);
 	}
 
-	public abstract start(...args: any[]): any;
+	public abstract start(...args: any[]): Awaited<unknown>;
 
-	public abstract publish(event: string, data: Send, options?: SendOptions): unknown;
+	public abstract publish(event: string, data: Send, options?: SendOptions): Awaited<unknown>;
 
-	public abstract call(method: string, data: Send, ...args: any[]): unknown;
+	public abstract call(method: string, data: Send, ...args: any[]): Awaited<unknown>;
 
 	/* eslint-disable @typescript-eslint/naming-convention */
-	protected abstract _subscribe(events: string[]): unknown;
-	protected abstract _unsubscribe(events: string[]): unknown;
+	public abstract _subscribe(events: string[]): Awaited<unknown>;
+	public abstract _unsubscribe(events: string[]): Awaited<unknown>;
 	/* eslint-enable @typescript-eslint/naming-convention */
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	protected _handleMessage(event: string, message: Buffer | Receive, options: ROpts): void {
+		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
+		this.brokerClient.emit(event, message, options);
+	}
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	protected _handleReply(event: string, message: Buffer | Receive): void {
+		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
+		this._responses.emit(event, message);
+	}
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	protected _awaitResponse(id: string, expiration: number = Broker.DEFAULT_EXPIRATION) {
+		return new Promise<Receive>((resolve, reject) => {
+			// eslint-disable-next-line no-undef
+			let timeout: NodeJS.Timer | null = null;
+
+			const listener = (response: Receive) => {
+				clearTimeout(timeout!);
+				resolve(response);
+			};
+
+			timeout = setTimeout(() => {
+				this._responses.removeListener(id, listener);
+				reject(new Error('callback exceeded time limit'));
+			}, expiration);
+
+			this._responses.once(id, listener);
+		});
+	}
 
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public static DEFAULT_EXPIRATION = 5e3;
