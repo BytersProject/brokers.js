@@ -1,6 +1,6 @@
-import { Brokers } from '../Brokers';
+import { decode, encode } from '@spectacles/util';
 import { EventEmitter } from 'events';
-import { encode, decode } from '@spectacles/util';
+import { Brokers } from '../Brokers';
 
 export type Serialize<Send> = (data: Send) => Buffer;
 export type Deserialize<Receive> = (data: Buffer) => Receive;
@@ -20,7 +20,7 @@ export interface ResponseOptions<T = unknown> {
 
 // TODO: Yes
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/naming-convention
-export abstract class Broker<Send, Receive, _ROpts extends ResponseOptions = ResponseOptions> extends EventEmitter {
+export abstract class Broker<Send, Receive, _ROpts extends ResponseOptions = ResponseOptions> {
 
 	public readonly kSerialize: Serialize<Send>;
 	public readonly kDeserialize: Deserialize<Receive>;
@@ -32,11 +32,12 @@ export abstract class Broker<Send, Receive, _ROpts extends ResponseOptions = Res
 	/* eslint-enable @typescript-eslint/naming-convention */
 
 	public constructor(options?: Options<Send, Receive>) {
-		super();
 		this.kSerialize = options?.serialize ?? encode;
 		this.kDeserialize = options?.deserialize ?? decode;
 		this._responses.setMaxListeners(0);
 	}
+
+	public abstract start(...args: any[]): any;
 
 	public abstract publish(event: string, data: Send, options?: SendOptions): unknown;
 
