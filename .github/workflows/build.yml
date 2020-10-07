@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'packages/**'
       - '.github/**'
       - 'package.json'
       - 'README.md'
