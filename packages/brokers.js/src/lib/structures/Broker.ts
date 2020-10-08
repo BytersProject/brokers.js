@@ -61,7 +61,7 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 	protected _awaitResponse(id: string, expiration: number = Broker.DEFAULT_EXPIRATION) {
 		return new Promise<Receive>((resolve, reject) => {
 			// eslint-disable-next-line no-undef
-			let timeout: NodeJS.Timer | null = null;
+			let timeout: NodeJS.Timeout | null = null;
 
 			const listener = (response: Receive) => {
 				clearTimeout(timeout!);
