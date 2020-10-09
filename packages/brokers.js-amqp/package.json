@@ -1,5 +1,5 @@
 {
-	"name": "@byters/brokers.js-rabbitmq",
+	"name": "@byters/brokers.js-amqp",
 	"version": "0.0.1",
 	"description": "",
 	"author": {
@@ -18,6 +18,8 @@
 		"build": "tsc -b src"
 	},
 	"dependencies": {
+		"@byters/brokers.js": "^0.2.1",
+		"amqplib": "^0.6.0"
 	},
 	"repository": {
 		"type": "git",
