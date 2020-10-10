@@ -25,7 +25,6 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 	public readonly kDeserialize: Deserialize<Receive>;
 
 	protected brokerClient!: Brokers;
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	private readonly _responses: EventEmitter = new EventEmitter();
 
 	public constructor(options?: Options<Send, Receive>) {
@@ -40,24 +39,19 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 
 	public abstract call(method: string, data: Send, ...args: any[]): Awaited<unknown>;
 
-	/* eslint-disable @typescript-eslint/naming-convention */
 	public abstract _subscribe(events: string[]): Awaited<unknown>;
 	public abstract _unsubscribe(events: string[]): Awaited<unknown>;
-	/* eslint-enable @typescript-eslint/naming-convention */
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	protected _handleMessage(event: string, message: Buffer | Receive, options: ROpts): void {
 		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
 		this.brokerClient.emit(event, message, options);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	protected _handleReply(event: string, message: Buffer | Receive): void {
 		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
 		this._responses.emit(event, message);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	protected _awaitResponse(id: string, expiration: number = Broker.DEFAULT_EXPIRATION) {
 		return new Promise<Receive>((resolve, reject) => {
 			// eslint-disable-next-line no-undef
@@ -77,7 +71,6 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public static DEFAULT_EXPIRATION = 5e3;
 
 }

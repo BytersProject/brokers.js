@@ -4,10 +4,8 @@ import { Awaited } from './utils/Types';
 
 export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknown>> extends EventEmitter {
 
-	/* eslint-disable @typescript-eslint/naming-convention */
 	public readonly broker: B;
 	public readonly subscribedEvents = new Set<string>();
-	/* eslint-enable @typescript-eslint/naming-convention */
 
 	public constructor(broker: B) {
 		super();
