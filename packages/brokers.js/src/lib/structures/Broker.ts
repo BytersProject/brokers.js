@@ -21,15 +21,15 @@ export interface ResponseOptions<T = unknown> {
 
 export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = ResponseOptions> {
 
-	public readonly kSerialize: Serialize<Send>;
-	public readonly kDeserialize: Deserialize<Receive>;
+	public readonly serialize: Serialize<Send>;
+	public readonly deserialize: Deserialize<Receive>;
 
 	protected brokerClient!: Brokers;
 	private readonly _responses: EventEmitter = new EventEmitter();
 
 	public constructor(options?: Options<Send, Receive>) {
-		this.kSerialize = options?.serialize ?? encode;
-		this.kDeserialize = options?.deserialize ?? decode;
+		this.serialize = options?.serialize ?? encode;
+		this.deserialize = options?.deserialize ?? decode;
 		this._responses.setMaxListeners(0);
 	}
 
@@ -43,13 +43,16 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 	public abstract _unsubscribe(events: string[]): Awaited<unknown>;
 
 	protected _handleMessage(event: string, message: Buffer | Receive, options: ROpts): void {
-		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
-		this.brokerClient.emit(event, message, options);
+		this.brokerClient.emit(event, this._deserializeMessage(message), options);
 	}
 
 	protected _handleReply(event: string, message: Buffer | Receive): void {
-		if (Buffer.isBuffer(message)) message = this.kDeserialize(message);
-		this._responses.emit(event, message);
+		this._responses.emit(event, this._deserializeMessage(message));
+	}
+
+	protected _deserializeMessage(message: Buffer | Receive): Receive {
+		if (Buffer.isBuffer(message)) message = this.deserialize(message);
+		return message;
 	}
 
 	protected _awaitResponse(id: string, expiration: number = Broker.DEFAULT_EXPIRATION) {
