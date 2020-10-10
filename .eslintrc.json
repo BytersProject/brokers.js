@@ -2,5 +2,8 @@
 	"extends": ["@quantumly"],
 	"env": {
 		"node": true
+	},
+	"rules": {
+		"@typescript-eslint/naming-convention": 0
 	}
 }
