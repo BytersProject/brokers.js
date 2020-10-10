@@ -1,3 +1,23 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.2](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.2.0...@byters/brokers.js@0.2.2) (2020-10-10)
+
+
+### Features
+
+* **brokers.js:** make broker generic ([ecb501a](https://github.com/BytersProject/brokers.js/commit/ecb501a4527d1d958acd6537189b58cdc6d2cb29))
+
+
+
+## 0.2.1 (2020-10-08)
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
