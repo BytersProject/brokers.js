@@ -33,14 +33,14 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 		this._responses.setMaxListeners(0);
 	}
 
-	public abstract start(...args: any[]): Awaited<unknown>;
+	public abstract start(...args: any[]): Awaited<any>;
 
-	public abstract publish(event: string, data: Send, options?: SendOptions): Awaited<unknown>;
+	public abstract publish(event: string, data: Send, options?: SendOptions): Awaited<any>;
 
-	public abstract call(method: string, data: Send, ...args: any[]): Awaited<unknown>;
+	public abstract call(method: string, data: Send, ...args: any[]): Awaited<any>;
 
-	public abstract _subscribe(events: string[]): Awaited<unknown>;
-	public abstract _unsubscribe(events: string[]): Awaited<unknown>;
+	public abstract _subscribe(events: string[]): Awaited<any>;
+	public abstract _unsubscribe(events: string[]): Awaited<any>;
 
 	protected _handleMessage(event: string, message: Buffer | Receive, options: ROpts): void {
 		this.brokerClient.emit(event, this._deserializeMessage(message), options);

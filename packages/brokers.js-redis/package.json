@@ -1,5 +1,5 @@
 {
-	"name": "@byters/brokers.js-amqp",
+	"name": "@byters/brokers.js-redis",
 	"version": "0.0.2",
 	"description": "",
 	"author": {
@@ -10,21 +10,25 @@
 	"license": "MIT",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"homepage": "https://github.com/BytersProject/brokers.js/tree/main/packages/brokers.js-amqp",
+	"homepage": "https://github.com/BytersProject/brokers.js/tree/main/packages/brokers.js-redis",
 	"scripts": {
 		"test": "jest",
 		"prelint": "yarn test && yarn build",
 		"lint": "eslint src tests --ext ts --fix",
-		"build": "tsc -b src"
+		"build": "yarn run build:source && yarn run build:move:scripts",
+		"build:move:scripts": "copyfiles ./src/lib/scripts/**/*.lua --up 1 ./dist/",
+		"build:source": "tsc -b src"
 	},
 	"dependencies": {
 		"@byters/brokers.js": "^0.2.2",
-		"amqplib": "^0.6.0"
+		"@spectacles/util": "^0.4.0",
+		"ioredis": "^4.17.3",
+		"lodash": "^4.17.20"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/BytersProject/brokers.js.git",
-		"directory": "packages/brokers.js-amqp"
+		"directory": "packages/brokers.js-redis"
 	},
 	"files": [
 		"dist",
