@@ -6,12 +6,12 @@
 	"command": {
 		"publish": {
 			"conventionalCommits": true,
-			"push": true
+			"push": false
 		},
 		"version": {
 			"allowBranch": "main",
 			"conventionalCommits": true,
-			"push": true,
+			"push": false,
 			"message": "chore(release): publish"
 		}
 	}
