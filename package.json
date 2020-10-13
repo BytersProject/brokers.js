@@ -10,7 +10,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"prepublishOnly": "yarn clean && yarn build",
-		"build": "yarn build:package:base && yarn build:package:amqp && yarn build:package:redis",
+		"build": "yarn build:package:base && lerna run build --parallel",
 		"build:package:base": "tsc -b ./packages/brokers.js/src",
 		"build:package:amqp": "tsc -b ./packages/brokers.js-amqp/src",
 		"build:package:redis": "yarn build:package:redis:src && yarn build:package:redis:scripts",
