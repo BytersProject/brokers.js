@@ -1,6 +1,6 @@
 {
 	"name": "@byters/brokers.js-amqp",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "",
 	"author": {
 		"name": "QuantumlyTangled",
@@ -18,7 +18,7 @@
 		"build": "tsc -b src"
 	},
 	"dependencies": {
-		"@byters/brokers.js": "^0.3.0",
+		"@byters/brokers.js": "^0.4.0",
 		"amqplib": "^0.6.0"
 	},
 	"repository": {
