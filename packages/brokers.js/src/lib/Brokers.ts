@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
 import { Broker, SendOptions } from './structures/Broker';
-import { Awaited } from './utils/Types';
 
 export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknown>> extends EventEmitter {
 
@@ -13,25 +12,25 @@ export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknow
 		this.broker = broker;
 	}
 
-	public start(...args: any[]): Awaited<unknown> {
+	public start<T = ReturnType<B['start']>>(...args: any[]): T {
 		return this.broker.start(...args);
 	}
 
-	public publish(event: string, data: unknown, options?: SendOptions): Awaited<unknown> {
+	public publish<T = ReturnType<B['publish']>>(event: string, data: unknown, options?: SendOptions): T {
 		return this.broker.publish(event, data, options);
 	}
 
-	public call(method: string, data: unknown, ...args: any[]): Awaited<unknown> {
+	public call<T = ReturnType<B['call']>>(method: string, data: unknown, ...args: any[]): T {
 		return this.broker.call(method, data, ...args);
 	}
 
-	public subscribe(events: string | string[]): Awaited<unknown> {
+	public subscribe<T = ReturnType<B['_subscribe']>>(events: string | string[]): T {
 		if (!Array.isArray(events)) events = [events];
 		for (const event of events) this.subscribedEvents.add(event);
 		return this.broker._subscribe(events);
 	}
 
-	public unsubscribe(events: string | string[]): Awaited<unknown> {
+	public unsubscribe<T = ReturnType<B['_unsubscribe']>>(events: string | string[]): T {
 		if (!Array.isArray(events)) events = [events];
 		for (const event of events) this.subscribedEvents.delete(event);
 		return this.broker._unsubscribe(events);
