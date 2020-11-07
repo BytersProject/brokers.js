@@ -45,7 +45,7 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		this.group = group;
 	}
 
-	public async start(urlOrConn: string | amqp.Connection, options?: any): Promise<void> {
+	public async start(urlOrConn: string | amqp.Connection, options?: any): Promise<amqp.Connection> {
 		let connection: amqp.Connection | undefined = undefined;
 		if (typeof urlOrConn !== 'string') connection = urlOrConn;
 
@@ -69,6 +69,16 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 				this.brokerClient.emit('error', err);
 			});
 		}
+
+		this.channel = await connection.createChannel();
+
+		this.callback = (await this.channel.assertQueue('', { exclusive: true })).queue;
+		await this.channel.consume(this.callback, msg => {
+			if (msg) this._handleReply(msg.properties.correlationId, msg.content);
+		}, { noAck: true });
+
+		await this.channel.assertExchange(this.group, 'direct');
+		return connection;
 	}
 
 	public async createQueue(event: string): Promise<string> {
