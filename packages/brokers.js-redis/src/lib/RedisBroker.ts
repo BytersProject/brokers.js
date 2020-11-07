@@ -80,9 +80,8 @@ export default class RedisBroker<Send = unknown, Receive = unknown> extends Brok
 		void args;
 	}
 
-	// TODO: Make type "Promise<string>" once @byters/brokers.js is updated
 	public publish(event: string, data: Send) {
-		return this.redis.xadd(event, '*', data);
+		return this.redis.xadd(event, '*', data) as Promise<string>;
 	}
 
 	public async call(method: string, data: Send, options: PublishOptions = {}): Promise<Receive> {
