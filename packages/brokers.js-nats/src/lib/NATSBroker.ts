@@ -1,5 +1,6 @@
-import { Broker, ResponseOptions } from '@byters/brokers.js';
-import { NatsError, Client, connect, RequestOptions, REQ_TIMEOUT } from 'nats';
+import { Broker, Options, ResponseOptions } from '@byters/brokers.js';
+import { mergeDefault } from '@sapphire/utilities';
+import { NatsError, Client, connect, RequestOptions, REQ_TIMEOUT, ClientOpts } from 'nats';
 
 export interface _NATSSubscription {
 	subject: string;
@@ -28,11 +29,21 @@ export default class NATSBroker<Send = unknown, Receieve = unknown> extends Brok
 
 	public connection!: Client;
 	public callback?: string;
+	public options: ClientOpts;
 	private _subscriptions: Map<string, number> = new Map();
+
+	public constructor(options: Options<Send, Receieve> & ClientOpts) {
+		super(options);
+
+		// @ts-expect-error Incompatible types. ts(2322)
+		this.options = mergeDefault(options, {
+			preserveBuffers: true
+		});
+	}
 
 	// TODO: Support multiple options
 	public start(): Client {
-		this.connection = connect();
+		this.connection = connect(this.options);
 		return this.connection;
 	}
 

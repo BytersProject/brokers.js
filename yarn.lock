@@ -1539,6 +1539,11 @@
   resolved "https://registry.yarnpkg.com/@quantumly/eslint-config/-/eslint-config-1.1.0.tgz#a7e6eb68884c1cd514d28e8d22b1345233c3ac3f"
   integrity sha512-OgONL42+Mx0ZDKa2x7+zrb+D/wi8Cn/+O28pKylZd9vpZcESYP+wfcr8s4koJNZiRMSrAEUo+ORJpzhjLZlERQ==
 
+"@sapphire/utilities@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@sapphire/utilities/-/utilities-1.1.0.tgz#f0eb237240c4607301eb170f6cc7f27369ae1ab0"
+  integrity sha512-EPZS+Ho+1bVgt/DBlkof1rV4JK4fjS1kIyvFgrhV+AvJb9/5ohk+CzYDR44k79824DqpX2st6jNcLPybDLy9Pw==
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.1.tgz#e7df00f98a203324f6dc7cc606cad9d4a8ab2217"
@@ -1552,11 +1557,6 @@
   integrity sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
-
-"@spectacles/types@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@spectacles/types/-/types-0.2.1.tgz#03e050c02e7a85fe4d378050cc69218a548be1d5"
-  integrity sha512-dIcqyPiUvVlYhQdWVqPCod1O5ZAWVZjavja2ZoECrq43F4BtgBZKFnBSHYIIC3jQrVXV486Nhl47vEQNiud6+g==
 
 "@spectacles/util@^0.4.0":
   version "0.4.0"

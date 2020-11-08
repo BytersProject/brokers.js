@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@byters/brokers.js": "^0.4.0",
+		"@sapphire/utilities": "^1.1.0",
 		"nats": "^1.4.12"
 	},
 	"repository": {
