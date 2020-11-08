@@ -10,29 +10,83 @@ import { ulid } from 'ulid';
 import { isObject } from './utils/utils';
 const { isFatalError } = require('amqplib/lib/connection'); // eslint-disable-line @typescript-eslint/no-var-requires
 
+/**
+ * @since 0.2.0
+ */
 export interface AMQpOptions<Send = any, Receive = unknown> extends Options<Send, Receive> {
+	/**
+	 * @since 0.2.0
+	 */
 	reconnectTimeout?: number;
+	/**
+	 * @since 0.2.0
+	 */
 	consume?: amqp.Options.Consume;
+	/**
+	 * @since 0.2.0
+	 */
 	assert?: amqp.Options.AssertQueue;
 }
 
+/**
+ * @since 0.2.0
+ */
 export interface AMQpResponseOptions extends ResponseOptions {
+	/**
+	 * @since 0.2.0
+	 */
 	ack: () => void;
+	/**
+	 * @since 0.2.0
+	 */
 	nack: (allUpTo?: boolean, requeue?: boolean) => void;
+	/**
+	 * @since 0.2.0
+	 */
 	reject: (requeue?: boolean) => void;
 }
 
-export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, AMQpResponseOptions> {
+/**
+ * @since 0.2.0
+ */
+export default class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, AMQpResponseOptions> {
 
+	/**
+	 * @since 0.2.0
+	 */
 	public channel?: amqp.Channel;
+	/**
+	 * @since 0.2.0
+	 */
 	public callback?: string;
+	/**
+	 * @since 0.2.0
+	 */
 	public group: string;
+	/**
+	 * @since 0.2.0
+	 */
 	public subgroup?: string;
+	/**
+	 * @since 0.2.0
+	 */
 	public options: AMQpOptions<Send, Receieve>;
+	/**
+	 * @since 0.2.0
+	 */
 	private _consumers: Map<string, string> = new Map();
 
+	/**
+	 * @since 0.2.0
+	 */
 	public constructor(group?: string, options?: AMQpOptions<Send, Receieve>);
+	/**
+	 * @since 0.2.0
+	 */
 	public constructor(group?: string, subgroup?: string, options?: AMQpOptions<Send, Receieve>);
+	/**
+	 * @since 0.2.0
+	 */
 	public constructor(group = 'default', subgroup?: AMQpOptions<Send, Receieve> | string, options?: AMQpOptions<Send, Receieve>) {
 		if (isObject(subgroup)) {
 			super(subgroup);
@@ -46,6 +100,9 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		this.group = group;
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public async start(urlOrConn: string | amqp.Connection, options?: any): Promise<amqp.Connection> {
 		let connection: amqp.Connection | undefined = undefined;
 		if (typeof urlOrConn !== 'string') connection = urlOrConn;
@@ -82,6 +139,9 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		return connection;
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public async createQueue(event: string): Promise<string> {
 		const queue = `${this.group}:${(this.subgroup ? `${this.subgroup}:` : '') + event}`;
 		await this._channel.assertQueue(queue, this.options.assert);
@@ -89,10 +149,16 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		return queue;
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public publish(event: string, data: Send, options: amqp.Options.Publish = {}): void {
 		this._channel.publish(this.group, event, this.serialize(data), options);
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public call(method: string, data: Send, options: amqp.Options.Publish = {}): Promise<Receieve> {
 		const correlation = ulid();
 		this.publish(method, data, Object.assign(options, {
@@ -103,6 +169,9 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		return this._awaitResponse(correlation, typeof options.expiration === 'string' ? parseInt(options.expiration, 10) : options.expiration);
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public _subscribe(events: string[]): Promise<amqp.Replies.Consume[]> {
 		return Promise.all(events.map(async event => {
 			const queue = await this.createQueue(event);
@@ -127,6 +196,9 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		}));
 	}
 
+	/**
+	 * @since 0.2.0
+	 */
 	public _unsubscribe(events: string[]): Promise<boolean[]> {
 		return Promise.all(events.map(async event => {
 			const consumer = this._consumers.get(event);
@@ -139,6 +211,10 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 		}));
 	}
 
+	/**
+	 * @since 0.2.0
+	 * @internal
+	 */
 	protected get _channel(): amqp.Channel {
 		// TODO: Create more specific error
 		if (!this.channel) throw new Error('no available amqp channel');
