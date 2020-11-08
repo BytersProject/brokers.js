@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.4.0...@byters/brokers.js@0.4.1) (2020-11-08)
+
+
+### Bug Fixes
+
+* **brokers.js:** export encoding functions ([403bc5b](https://github.com/BytersProject/brokers.js/commit/403bc5b332a556e1f4b323bc56d5d4c478ed6a0f))
+
+
+
+
+
 # [0.4.0](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.3.0...@byters/brokers.js@0.4.0) (2020-11-07)
 
 

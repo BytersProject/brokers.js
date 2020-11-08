@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-amqp@0.1.1...@byters/brokers.js-amqp@0.2.0) (2020-11-08)
+
+
+### Features
+
+* **broker.js-ampq:** rpc handling ([66c0318](https://github.com/BytersProject/brokers.js/commit/66c0318af76b90b025af3c8fa000e05861a68640))
+* **brokers.js-amqp:** initial ([91bf3c4](https://github.com/BytersProject/brokers.js/commit/91bf3c4eb7814f01e13c80b3a03dc8237ffb7c7a))
+
+
+
+
+
 ## [0.1.1](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-amqp@0.1.0...@byters/brokers.js-amqp@0.1.1) (2020-11-07)
 
 **Note:** Version bump only for package @byters/brokers.js-amqp
