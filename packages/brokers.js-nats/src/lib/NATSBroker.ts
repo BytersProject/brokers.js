@@ -25,7 +25,7 @@ export interface NATSBrokerEvents {
 	// #endregion Broker Errors
 }
 
-export default class NATSBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, ResponseOptions> {
+export class NATSBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, ResponseOptions> {
 
 	public connection!: Client;
 	public callback?: string;

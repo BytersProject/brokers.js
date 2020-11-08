@@ -35,6 +35,10 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 		this._responses.setMaxListeners(0);
 	}
 
+	public _init(client: Brokers) {
+		this.brokerClient = client;
+	}
+
 	public abstract start(...args: any[]): Awaited<any>;
 
 	public abstract publish(event: string, data: Send, options?: SendOptions): Awaited<any>;

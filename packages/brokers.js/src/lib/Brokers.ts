@@ -10,6 +10,7 @@ export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknow
 		super();
 
 		this.broker = broker;
+		this.broker._init(this);
 	}
 
 	public start<T = ReturnType<B['start']>>(...args: any[]): T {

@@ -45,7 +45,7 @@ Redis.Command.setArgumentTransformer('xadd', args => {
 	return args;
 });
 
-export default class RedisBroker<Send = unknown, Receive = unknown> extends Broker<Send, Receive, RedisResponseOptions> {
+export class RedisBroker<Send = unknown, Receive = unknown> extends Broker<Send, Receive, RedisResponseOptions> {
 
 	public name: string;
 	public blockInterval: number;

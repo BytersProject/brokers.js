@@ -49,7 +49,7 @@ export interface AMQpResponseOptions extends ResponseOptions {
 /**
  * @since 0.2.0
  */
-export default class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, AMQpResponseOptions> {
+export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, AMQpResponseOptions> {
 
 	/**
 	 * @since 0.2.0
