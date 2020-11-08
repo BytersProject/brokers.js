@@ -27,24 +27,30 @@ export interface NATSBrokerEvents {
 export class NATSBroker<Send = unknown, Receieve = unknown> extends Broker<Send, Receieve, ResponseOptions> {
 
 	public connection!: Client;
+	public callback?: string;
 	private _subscriptions: Map<string, number> = new Map();
 
 	// TODO: Support multiple options
 	public start(): Client {
-		return this.connection = connect();
+		this.connection = connect();
+		return this.connection;
 	}
 
 	public publish(event: string, data: Send): void {
 		this.connection.publish(event, this.serialize(data));
 	}
 
-	public call(event: string, data: Send, options?: RequestOptions): void {
-		this.connection.requestOne(event, this.serialize(data), options ?? {}, options?.timeout ?? 60000 /* 60s */, (msg: unknown) => {
-			if (msg instanceof NatsError && msg.code === REQ_TIMEOUT) {
-				this.brokerClient.emit('callError', event, msg);
-			} else {
-				this._handleReply(event, msg as Buffer);
-			}
+	public call(event: string, data: Send, options?: RequestOptions) {
+		const timeout = options?.timeout ?? 60000; /* 60s */
+		return new Promise<Receieve>((resolve, reject) => {
+			this.connection.requestOne(event, this.serialize(data), options ?? {}, timeout, (msg: unknown) => {
+				if (msg instanceof NatsError && msg.code === REQ_TIMEOUT) {
+					this.brokerClient.emit('callError', event, msg);
+					reject(msg.message);
+				} else {
+					resolve(this.deserialize(msg as Buffer));
+				}
+			});
 		});
 	}
 
