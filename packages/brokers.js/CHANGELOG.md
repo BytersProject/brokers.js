@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.4](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.4.2...@byters/brokers.js@0.4.4) (2020-11-08)
+
+
+### Bug Fixes
+
+* rebuild ([7270685](https://github.com/BytersProject/brokers.js/commit/72706851d6bdede0a966ee35316b51a816cbd496))
+
+
+
+
+
 ## [0.4.2](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.4.1...@byters/brokers.js@0.4.2) (2020-11-08)
 
 

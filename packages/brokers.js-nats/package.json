@@ -1,6 +1,6 @@
 {
 	"name": "@byters/brokers.js-nats",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "",
 	"author": {
 		"name": "QuantumlyTangled",
@@ -18,7 +18,7 @@
 		"build": "tsc -b src"
 	},
 	"dependencies": {
-		"@byters/brokers.js": "^0.4.2",
+		"@byters/brokers.js": "^0.4.4",
 		"@sapphire/utilities": "^1.1.0",
 		"nats": "^1.4.12"
 	},
