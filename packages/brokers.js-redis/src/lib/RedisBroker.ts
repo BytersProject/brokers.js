@@ -4,7 +4,7 @@
 	Source from: https://github.com/spec-tacles/spectacles.js/blob/master/packages/brokers/src/Redis.ts
 */
 
-import { Broker, ResponseOptions } from '@byters/brokers.js';
+import { Broker, Options, ResponseOptions } from '@byters/brokers.js';
 import { encode } from '@spectacles/util';
 import { randomBytes } from 'crypto';
 import { readFileSync } from 'fs';
@@ -55,8 +55,8 @@ export default class RedisBroker<Send = unknown, Receive = unknown> extends Brok
 	protected _streamReadClient: Redis.Redis;
 	protected _rpcReadClient: Redis.Redis;
 
-	public constructor(public group: string, public redis: Redis.Redis, options: ClientOptions = {}) {
-		super();
+	public constructor(public group: string, public redis: Redis.Redis, options: ClientOptions = {}, brokerOptions?: Options<Send, Receive>) {
+		super(brokerOptions);
 
 		this.name = options.name || randomBytes(20).toString('hex');
 		this.blockInterval = options.blockInterval || 5000;

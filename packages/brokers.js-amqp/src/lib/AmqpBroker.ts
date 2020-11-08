@@ -3,6 +3,7 @@
 
 	Source from: https://github.com/spec-tacles/spectacles.js/blob/master/packages/brokers/src/Amqp.ts
 */
+
 import { Broker, Options, ResponseOptions } from '@byters/brokers.js';
 import * as amqp from 'amqplib';
 import { ulid } from 'ulid';
