@@ -1,9 +1,11 @@
-import { decode, encode } from '@spectacles/util';
 import { EventEmitter } from 'events';
 import { Brokers } from '../Brokers';
+import { decode, encode } from '../encoding/BufferEnc';
 import { Awaited } from '../utils/Types';
 
+// TODO: Allow for custom output
 export type Serialize<Send> = (data: Send) => Buffer;
+// TODO: Allow for custom input
 export type Deserialize<Receive> = (data: Buffer) => Receive;
 
 export interface Options<Send = any, Receive = unknown> {
