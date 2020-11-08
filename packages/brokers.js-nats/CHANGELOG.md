@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-nats@0.2.0...@byters/brokers.js-nats@0.2.1) (2020-11-08)
+
+
+### Bug Fixes
+
+* undefined brokers client ([53d7227](https://github.com/BytersProject/brokers.js/commit/53d72275056f6eaf9d11b804bf5c40602bba62c8))
+
+
+
+
+
 # 0.2.0 (2020-11-08)
 
 
