@@ -1,0 +1,43 @@
+{
+	"name": "@byters/brokers.js-nats",
+	"version": "0.1.0",
+	"description": "",
+	"author": {
+		"name": "QuantumlyTangled",
+		"email": "yo@quantumlytangled.com",
+		"url": "https://quantumlytangled.com"
+	},
+	"license": "MIT",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"homepage": "https://github.com/BytersProject/brokers.js/tree/main/packages/brokers.js-nats",
+	"scripts": {
+		"test": "jest",
+		"prelint": "yarn test && yarn build",
+		"lint": "eslint src tests --ext ts --fix",
+		"build": "tsc -b src"
+	},
+	"dependencies": {
+		"@byters/brokers.js": "^0.4.0",
+		"nats": "^1.4.12"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BytersProject/brokers.js.git",
+		"directory": "packages/brokers.js-nats"
+	},
+	"files": [
+		"dist",
+		"!dist/tsconfig.tsbuildinfo"
+	],
+	"engines": {
+		"node": ">=14",
+		"npm": ">=6"
+	},
+	"bugs": {
+		"url": "https://github.com/BytersProject/brokers.js/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

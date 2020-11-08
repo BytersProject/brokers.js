@@ -13,6 +13,7 @@
 		"build": "yarn build:package:base && lerna run build --parallel",
 		"build:package:base": "tsc -b ./packages/brokers.js/src",
 		"build:package:amqp": "tsc -b ./packages/brokers.js-amqp/src",
+		"build:package:nats": "tsc -b ./packages/brokers.js-nats/src",
 		"build:package:redis": "yarn build:package:redis:src && yarn build:package:redis:scripts",
 		"build:package:redis:src": "tsc -b ./packages/brokers.js-redis/src",
 		"build:package:redis:scripts": "copyfiles ./packages/brokers.js-redis/src/lib/scripts/**/*.lua --up 3 ./packages/brokers.js-redis/dist/",
