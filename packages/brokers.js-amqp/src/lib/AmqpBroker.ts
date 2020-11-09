@@ -27,6 +27,9 @@ export interface AMQpOptions<Send = any, Receive = unknown> extends Options<Send
 	 */
 	assert?: amqp.Options.AssertQueue;
 
+	/**
+	 * @since 0.2.3
+	 */
 	exchange?: amqp.Options.AssertExchange;
 }
 
