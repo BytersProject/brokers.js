@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
-import { Broker, SendOptions } from './structures/Broker';
+import { Broker } from './structures/Broker';
 
-export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknown>> extends EventEmitter {
+export class Brokers<B extends Broker<any, any> = Broker<any, any>> extends EventEmitter {
 
 	public readonly broker: B;
 	public readonly subscribedEvents = new Set<string>();
@@ -13,16 +13,18 @@ export class Brokers<B extends Broker<unknown, unknown> = Broker<unknown, unknow
 		this.broker._init(this);
 	}
 
-	public start<T = ReturnType<B['start']>>(...args: any[]): T {
+	public start<T = ReturnType<B['start']>>(...args: Parameters<B['start']>): T {
 		return this.broker.start(...args);
 	}
 
-	public publish<T = ReturnType<B['publish']>>(event: string, data: unknown, options?: SendOptions): T {
-		return this.broker.publish(event, data, options);
+	public publish<T = ReturnType<B['publish']>>(...args: Parameters<B['publish']>): T {
+		// @ts-expect-error Expected 2-3 arguments, but got 0 or more.ts(2556)
+		return this.broker.publish(...args);
 	}
 
-	public call<T = ReturnType<B['call']>>(method: string, data: unknown, ...args: any[]): T {
-		return this.broker.call(method, data, ...args);
+	public call<T = ReturnType<B['call']>>(...args: Parameters<B['call']>): T {
+		// @ts-expect-error Expected at least 2 arguments, but got 0 or more.ts(2557)
+		return this.broker.call(...args);
 	}
 
 	public subscribe<T = ReturnType<B['_subscribe']>>(events: string | string[]): T {

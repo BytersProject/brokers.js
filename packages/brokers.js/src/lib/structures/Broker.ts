@@ -23,8 +23,8 @@ export interface ResponseOptions<T = unknown> {
 
 export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = ResponseOptions> {
 
-	public readonly serialize: Serialize<Send>;
-	public readonly deserialize: Deserialize<Receive>;
+	public serialize: Serialize<Send>;
+	public deserialize: Deserialize<Receive>;
 
 	protected brokerClient!: Brokers;
 	private readonly _responses: EventEmitter = new EventEmitter();
@@ -61,7 +61,7 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 		return message;
 	}
 
-	protected _awaitResponse(id: string, expiration: number = Broker.DEFAULT_EXPIRATION) {
+	protected _awaitResponse(id: string, expiration: number = (this.constructor as typeof Broker).DEFAULT_EXPIRATION) {
 		return new Promise<Receive>((resolve, reject) => {
 			// eslint-disable-next-line no-undef
 			let timeout: NodeJS.Timeout | null = null;
