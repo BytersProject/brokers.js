@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-amqp@0.2.2...@byters/brokers.js-amqp@0.2.3) (2020-11-09)
+
+
+### Bug Fixes
+
+* **brokers.js-amqp:** assert non durable exchange by default ([6d4f19d](https://github.com/BytersProject/brokers.js/commit/6d4f19d95c56b0c33306a96d73cf5cac3e5cdb2c))
+
+
+
+
+
 ## [0.2.2](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-amqp@0.2.1...@byters/brokers.js-amqp@0.2.2) (2020-11-08)
 
 **Note:** Version bump only for package @byters/brokers.js-amqp
