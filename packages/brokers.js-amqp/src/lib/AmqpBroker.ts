@@ -26,6 +26,8 @@ export interface AMQpOptions<Send = any, Receive = unknown> extends Options<Send
 	 * @since 0.2.0
 	 */
 	assert?: amqp.Options.AssertQueue;
+
+	exchange?: amqp.Options.AssertExchange;
 }
 
 /**
@@ -135,7 +137,10 @@ export class AMQpBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 			if (msg) this._handleReply(msg.properties.correlationId, msg.content);
 		}, { noAck: true });
 
-		await this.channel.assertExchange(this.group, 'direct');
+		await this.channel.assertExchange(this.group, 'direct', {
+			durable: false,
+			...this.options.exchange
+		});
 		return connection;
 	}
 
