@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.4.5...@byters/brokers.js@0.5.0) (2020-11-11)
+
+
+### Features
+
+* **brokers.js:** make ack a default ([8d1a43b](https://github.com/BytersProject/brokers.js/commit/8d1a43b5e35b2315ffdb6d08f18848b18c0a0314))
+
+
+
+
+
 ## [0.4.5](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js@0.4.4...@byters/brokers.js@0.4.5) (2020-11-09)
 
 **Note:** Version bump only for package @byters/brokers.js
