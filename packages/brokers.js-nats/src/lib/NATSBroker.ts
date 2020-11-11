@@ -1,5 +1,5 @@
 import { Broker, Options, ResponseOptions } from '@byters/brokers.js';
-import { mergeDefault } from '@sapphire/utilities';
+import { mergeDefault, noop } from '@sapphire/utilities';
 import { NatsError, Client, connect, RequestOptions, REQ_TIMEOUT, ClientOpts } from 'nats';
 
 export interface _NATSSubscription {
@@ -72,7 +72,8 @@ export class NATSBroker<Send = unknown, Receieve = unknown> extends Broker<Send,
 			const sub = this.connection.subscribe(event, (msg: Buffer, reply: string) => {
 				this._handleMessage(event, msg, {
 					// TODO: Set default serialize method as an extension of `toString`
-					reply: data => this.connection.publish(reply, this.serialize(data as Send))
+					reply: data => this.connection.publish(reply, this.serialize(data as Send)),
+					ack: noop
 				});
 			});
 
