@@ -18,6 +18,7 @@ export interface SendOptions {
 }
 
 export interface ResponseOptions<T = unknown> {
+	ack: () => void;
 	reply: (data: T) => void;
 }
 
