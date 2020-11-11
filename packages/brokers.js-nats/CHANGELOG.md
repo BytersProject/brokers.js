@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-nats@0.2.4...@byters/brokers.js-nats@0.2.5) (2020-11-11)
+
+
+### Bug Fixes
+
+* **brokers.js-nats:** missing ack ([0345b91](https://github.com/BytersProject/brokers.js/commit/0345b91e399d09971ff032846ea0190e1d140b3e))
+
+
+
+
+
 ## [0.2.4](https://github.com/BytersProject/brokers.js/compare/@byters/brokers.js-nats@0.2.3...@byters/brokers.js-nats@0.2.4) (2020-11-11)
 
 **Note:** Version bump only for package @byters/brokers.js-nats
