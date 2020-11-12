@@ -10,7 +10,7 @@ export class Brokers<B extends Broker<any, any> = Broker<any, any>> extends Even
 		super();
 
 		this.broker = broker;
-		this.broker._init(this);
+		this.broker.__init(this);
 	}
 
 	public start<T = ReturnType<B['start']>>(...args: Parameters<B['start']>): T {

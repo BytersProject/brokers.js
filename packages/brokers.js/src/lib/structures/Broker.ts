@@ -27,7 +27,7 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 	public serialize: Serialize<Send>;
 	public deserialize: Deserialize<Receive>;
 
-	protected brokerClient!: Brokers;
+	public brokerClient!: Brokers;
 	private readonly _responses: EventEmitter = new EventEmitter();
 
 	public constructor(options?: Options<Send, Receive>) {
@@ -36,7 +36,7 @@ export abstract class Broker<Send, Receive, ROpts extends ResponseOptions = Resp
 		this._responses.setMaxListeners(0);
 	}
 
-	public _init(client: Brokers) {
+	public __init(client: Brokers) {
 		this.brokerClient = client;
 	}
 
